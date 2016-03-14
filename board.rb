@@ -1,5 +1,5 @@
 require_relative 'pieces'
-
+require_relative 'display'
 class Board
   class EmptySquareError < StandardError
   end
@@ -67,7 +67,7 @@ class Board
     grid[*end_pos].position = end_pos
   end
 
-  
+
   attr_reader :grid
   def [](row, column)
     grid[row][column]

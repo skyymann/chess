@@ -1,11 +1,11 @@
 require 'io/console'
-
+require 'byebug'
 module Cursorable
   KEYMAP = {
-    "\e[A" => :up,
-    "\e[B" => :down,
-    "\e[C" => :right,
-    "\e[D" => :left,
+    "w" => :up,
+    "s" => :down,
+    "d" => :right,
+    "a" => :left,
     "\r"   => :return,
     "\u0003" => :ctrl_c
   }
@@ -18,6 +18,7 @@ module Cursorable
   }
 
   def get_input
+  #  debugger
     key = KEYMAP[read_char]
     handle_key(key)
   end
@@ -45,7 +46,7 @@ module Cursorable
   end
 
   def update_pos(delta)
-    new_pos = [@cursor_pos[0] + delta[0], @cursor[1] + delta[1]]
+    new_pos = [@cursor[0] + delta[0], @cursor[1] + delta[1]]
     @cursor = new_pos if Board.in_bounds?(new_pos)
   end
 
