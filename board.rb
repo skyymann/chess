@@ -35,11 +35,20 @@ class Board
   end
 
   def Board.empty_row()
-    Array.new(8){nil}
+    Array.new(8) { EmptySpace.new }
   end
 
   def initialize()
     @grid = Board.default_grid
+  end
+
+  attr_reader :grid
+
+  def self.in_bounds?(pos)
+    return false unless pos[0].between?(0, 7)
+    return false unless pos[1].between?(0, 7)
+
+    true
   end
 
   def move(start, end_pos)
@@ -58,7 +67,7 @@ class Board
     grid[*end_pos].position = end_pos
   end
 
-  private
+  
   attr_reader :grid
   def [](row, column)
     grid[row][column]
