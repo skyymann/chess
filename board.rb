@@ -6,6 +6,13 @@ class Board
   class InvalidMoveError < StandardError
   end
 
+# created for testing purposes
+  def Board.test_grid
+    grid = []
+    8.times { grid << Board.empty_row}
+    grid
+  end
+
   def Board.default_grid
     grid = []
     grid << Board.pieces_row(:black, 0)
@@ -39,7 +46,9 @@ class Board
   end
 
   def initialize()
-    @grid = Board.default_grid
+    # for testing purposes
+    #@grid = Board.default_grid
+    @grid = Board.test_grid
   end
 
   attr_reader :grid
@@ -75,5 +84,12 @@ class Board
 
   def []=(row, column, el)
     grid[row][column] = el
+  end
+
+  def inspect
+    @grid.each do |row|
+      row.each { |el| print el }
+      print "\n"
+    end
   end
 end
