@@ -35,6 +35,25 @@ class Piece
       @board[*new_position].color != @color
   end
 
+  def valid_moves
+    moves.reject { |move| move_into_check?(move) }
+  end
+
+  def move_into_check?(position)
+    duped_board = @board.dup
+    duped_self = duped_board[*@position]
+
+    duped_self.move!(position)
+
+    duped_board.in_check?(@color)
+  end
+
+  def move!(new_position)
+    @board[*@position] = EmptySpace.instance
+    @position = new_position
+    @board[*new_position] = self
+  end
+
   def add_delta(pos, delta)
     [pos[0] + delta[0], pos[1] + delta[1]]
   end

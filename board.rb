@@ -27,15 +27,34 @@ class Board
 
   def initialize
     @grid = Board.empty_board
-    # fill_grid
   end
 
   attr_reader :grid
 
   def in_check?(color)
-    enemy_pieces = pieces.reject { |piece| piece.color == color }
-
+    #byebug
+    enemy_pieces = pieces - pieces_by_color(color)
     enemy_pieces.any? { |piece| piece.moves.include?(king_pos(color)) }
+  end
+
+  def pieces_by_color(color)
+    pieces.select { |piece| piece.color == color }
+  end
+
+  def checkmate?(color)
+    return false unless in_check?(color)
+    all_moves = pieces_by_color(color).inject([]) do |all_moves, piece|
+      piece.valid_moves + all_moves
+    end
+    all_moves.empty?
+  end
+
+  def dup
+    duped_board = Board.new
+    pieces.each do |piece|
+      piece.class.new(piece.color, piece.position, duped_board)
+    end
+    duped_board
   end
 
   def pieces
