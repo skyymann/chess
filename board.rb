@@ -7,7 +7,7 @@ class Board
   end
 
 # created for testing purposes
-  def self.in_bounds?(pos)
+  def Board.in_bounds?(pos)
     return false unless pos[0].between?(0, 7)
     return false unless pos[1].between?(0, 7)
 
@@ -21,7 +21,7 @@ class Board
   end
 
   def Board.empty_row()
-    Array.new(8) { EmptySpace.new } #instance
+    Array.new(8) { EmptySpace.instance}
   end
 
   def initialize
@@ -30,6 +30,10 @@ class Board
   end
 
   attr_reader :grid
+
+  def in_check?(color)
+
+  end
 
   def fill_grid
     generate_pieces_row(:black, 0)

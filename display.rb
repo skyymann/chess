@@ -12,7 +12,7 @@ class Display
 
   def render
     system("clear")
-    puts "Arrow keys to move, enter to confirm"
+    puts "WASD keys to move, enter to confirm"
     build_grid.each { |row| puts row.join }
     nil
   end

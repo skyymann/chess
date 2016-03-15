@@ -1,5 +1,6 @@
+require 'singleton'
 class EmptySpace
-  #include Singleton
+  include Singleton
 
   def color
     :green

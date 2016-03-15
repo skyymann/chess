@@ -16,6 +16,12 @@ module Cursorable
     up: [-1, 0],
     down: [1, 0]
   }
+  def test_play
+    loop do
+      render
+      get_input
+    end
+  end
 
   def get_input
   #  debugger
