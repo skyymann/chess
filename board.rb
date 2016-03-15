@@ -1,5 +1,6 @@
 require_relative 'pieces'
 require_relative 'display'
+require 'byebug'
 class Board
   class EmptySquareError < StandardError
   end
@@ -32,7 +33,21 @@ class Board
   attr_reader :grid
 
   def in_check?(color)
+    enemy_pieces = pieces.reject { |piece| piece.color == color }
 
+    enemy_pieces.any? { |piece| piece.moves.include?(king_pos(color)) }
+  end
+
+  def pieces
+    @grid.flatten.select { |square| square.is_a?(Piece) }
+  end
+
+  def king_pos(color)
+    king = pieces.find do |piece|
+      piece.color == color && piece.is_a?(King)
+    end
+
+    king.position
   end
 
   def fill_grid

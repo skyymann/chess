@@ -13,7 +13,9 @@ class Piece
     [-1,1],
     [-1,-1]
   ]
-
+  def inspect
+    "<#{self.class}, #{@position}, #{@color}>"
+  end
   def initialize(color, position, board)
     @color = color
     @position = position

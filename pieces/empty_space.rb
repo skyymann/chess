@@ -2,6 +2,9 @@ require 'singleton'
 class EmptySpace
   include Singleton
 
+  def inspect
+    "<EMPTY SPACE>"
+  end
   def color
     :green
   end

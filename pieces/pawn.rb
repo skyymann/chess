@@ -38,9 +38,8 @@ class Pawn < Piece
   end
 
   def valid_attack?(delta)
-    destination_color = @board[*add_delta(@position, delta)].color
-
-    destination_color != :green && destination_color != @color
+    targeted_square = add_delta(@position, delta)
+    valid?(targeted_square) && @board[*targeted_square].color != :green
   end
 
   def unmoved?
