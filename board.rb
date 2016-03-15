@@ -7,57 +7,52 @@ class Board
   end
 
 # created for testing purposes
-  def Board.test_grid
-    grid = []
-    8.times { grid << Board.empty_row}
-    grid
-  end
-
-  def Board.default_grid
-    grid = []
-    grid << Board.pieces_row(:black, 0)
-    grid << Board.pawn_row(:black, 1)
-    4.times { grid << Board.empty_row}
-    grid << Board.pawn_row(:white, 6)
-    grid << Board.pieces_row(:white, 7)
-  end
-
-  def Board.pieces_row(color, row)
-    [Rook.new(color, [row, 0]),
-     Knight.new(color, [row, 1]),
-     Bishop.new(color, [row, 2]),
-     Queen.new(color, [row, 3]),
-     King.new(color, [row, 4]),
-     Bishop.new(color, [row, 5]),
-     Knight.new(color, [row, 6]),
-     Rook.new(color, [row, 7])]
-  end
-
-  def Board.pawn_row(color, row)
-    pawn_row = []
-    8.times do |column|
-      pawn_row << Pawn.new(color, [row, column])
-    end
-    pawn_row
-  end
-
-  def Board.empty_row()
-    Array.new(8) { EmptySpace.new }
-  end
-
-  def initialize()
-    # for testing purposes
-    #@grid = Board.default_grid
-    @grid = Board.test_grid
-  end
-
-  attr_reader :grid
-
   def self.in_bounds?(pos)
     return false unless pos[0].between?(0, 7)
     return false unless pos[1].between?(0, 7)
 
     true
+  end
+
+  def Board.empty_board
+    grid = []
+    8.times { grid << Board.empty_row}
+    grid
+  end
+
+  def Board.empty_row()
+    Array.new(8) { EmptySpace.new } #instance
+  end
+
+  def initialize
+    @grid = Board.empty_board
+    # fill_grid
+  end
+
+  attr_reader :grid
+
+  def fill_grid
+    generate_pieces_row(:black, 0)
+    generate_pawn_row(:black, 1)
+    generate_pawn_row(:white, 6)
+    generate_pieces_row(:white, 7)
+  end
+
+  def generate_pieces_row(color, row)
+    Rook.new(color, [row, 0], self)
+    Knight.new(color, [row, 1], self)
+    Bishop.new(color, [row, 2], self)
+    Queen.new(color, [row, 3], self)
+    King.new(color, [row, 4], self)
+    Bishop.new(color, [row, 5], self)
+    Knight.new(color, [row, 6], self)
+    Rook.new(color, [row, 7], self)
+  end
+
+  def generate_pawn_row(color, row)
+    8.times do |column|
+      Pawn.new(color, [row, column], self)
+    end
   end
 
   def move(start, end_pos)

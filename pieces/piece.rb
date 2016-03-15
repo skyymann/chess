@@ -18,6 +18,8 @@ class Piece
     @color = color
     @position = position
     @board = board
+
+    board[*position] = self
   end
 
   attr_accessor :position

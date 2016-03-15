@@ -1,4 +1,6 @@
 class EmptySpace
+  #include Singleton
+
   def color
     :green
   end
