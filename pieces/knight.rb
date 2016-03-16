@@ -12,7 +12,7 @@ class Knight < Piece
   ]
 
   def to_s
-    " ♞  "
+    " ♞ "
   end
 
   def deltas

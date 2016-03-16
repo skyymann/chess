@@ -6,9 +6,11 @@ class Display
 
   def initialize(board)
     @cursor = [0,0]
-    @selected = false
+    @selected_pos = nil
     @board = board
   end
+
+  attr_writer :selected_pos
 
   def render
     system("clear")
@@ -31,14 +33,25 @@ class Display
   end
 
   def colors_for(row_idx, col_idx)
-    if [row_idx, col_idx] == @cursor
-      bg = :light_red
-    elsif (row_idx + col_idx).odd?
+    if (row_idx + col_idx).odd?
       bg = :blue
     else
       bg = :light_blue
     end
 
+    if @selected_pos
+      bg = :light_green if [row_idx, col_idx] == @selected_pos
+      if @board[*@selected_pos].valid_moves.include?([row_idx, col_idx])
+        bg = :yellow
+      end
+    end
+
+    if [row_idx, col_idx] == @cursor
+      bg = :light_red
+    end
+
     { background: bg, color: @board[row_idx, col_idx].color }
   end
+
+
 end

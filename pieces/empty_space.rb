@@ -1,15 +1,22 @@
 require 'singleton'
 class EmptySpace
   include Singleton
+  attr_accessor :position
 
   def inspect
     "<EMPTY SPACE>"
   end
+
   def color
     :green
   end
-  attr_accessor :position
+
+
   def to_s
-    "    "
+    "   "
+  end
+
+  def empty?
+    true
   end
 end

@@ -1,5 +1,4 @@
 class Piece
-
   LINEAR_DELTAS = [
     [1,0],
     [-1,0],
@@ -56,5 +55,9 @@ class Piece
 
   def add_delta(pos, delta)
     [pos[0] + delta[0], pos[1] + delta[1]]
+  end
+
+  def empty?
+    false
   end
 end

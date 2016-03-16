@@ -7,20 +7,16 @@ module Slideable
 
   def find_range(direction)
     range = []
-    current_pos = @position.dup
+    current_pos = @position
 
     loop do
       current_pos = add_delta(current_pos, direction)
       break unless valid?(current_pos)
 
-      case @board[*current_pos].color
-      when :green
-        range << current_pos
-      else
-        range << current_pos
-        break
-      end
+      range << current_pos
+      break unless @board[*current_pos].empty?
     end
+
     range
   end
 end

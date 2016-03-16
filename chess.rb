@@ -1,6 +1,6 @@
 require_relative 'board'
 require_relative 'player'
-
+#TODO: Announce check, castle, convert pawns, AI, stalemate, forfeit, menu
 class Chess
   def initialize(player1, player2)
     @cur_player = player1
@@ -19,7 +19,7 @@ class Chess
       @cur_player.take_turn
       switch_players!
     end
-    
+
     @prev_player.display.render
     puts "Congratulations #{@prev_player.name}! You win!"
   end
@@ -31,4 +31,12 @@ class Chess
   def game_over?
     @board.checkmate?(@cur_player.color)
   end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  p1 = Player.new("ben")
+  p2 = Player.new("Kellam")
+  game = Chess.new(p1,p2)
+  game.setup
+  game.play
 end

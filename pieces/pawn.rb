@@ -2,7 +2,7 @@ class Pawn < Piece
   include Steppable
 
   def to_s
-    " ♟  "
+    " ♟ "
   end
 
   def deltas
@@ -39,7 +39,7 @@ class Pawn < Piece
 
   def valid_attack?(delta)
     targeted_square = add_delta(@position, delta)
-    valid?(targeted_square) && @board[*targeted_square].color != :green
+    valid?(targeted_square) && !@board[*targeted_square].empty?
   end
 
   def unmoved?
