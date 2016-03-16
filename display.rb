@@ -7,10 +7,11 @@ class Display
   def initialize(board)
     @cursor = [0,0]
     @selected_pos = nil
+    @selected_pos_moves = nil
     @board = board
   end
 
-  attr_writer :selected_pos
+  attr_writer :selected_pos, :selected_pos_moves
 
   def render
     system("clear")
@@ -27,6 +28,8 @@ class Display
 
   def build_row(row, row_idx)
     row.map.with_index do |square, col_idx|
+
+
       color_options = colors_for(row_idx, col_idx)
       square.to_s.colorize(color_options)
     end
@@ -41,7 +44,8 @@ class Display
 
     if @selected_pos
       bg = :light_green if [row_idx, col_idx] == @selected_pos
-      if @board[*@selected_pos].valid_moves.include?([row_idx, col_idx])
+
+      if @selected_pos_moves.include?( [row_idx, col_idx] )
         bg = :yellow
       end
     end

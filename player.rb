@@ -54,6 +54,7 @@ class Player
     end
 
     @display.selected_pos = position
+    @display.selected_pos_moves = @board[*position].valid_moves
     piece
   end
 
@@ -70,8 +71,9 @@ class Player
       sleep(2)
     retry
     end
-    
+
     @display.selected_pos = nil
+    @display.selected_pos_moves = nil
     position
   end
 end
